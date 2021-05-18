@@ -8,7 +8,14 @@ public class SwiftFlutterNativeCrashPlugin: NSObject, FlutterPlugin {
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
+  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) throws {
+    if call.method == "crash" {
+        NSException(
+            name: NSExceptionName(rawValue: "FlutterNativeCrashException"),
+            reason:"This is a crash caused by calling .crash() in Dart.",
+            userInfo:nil
+          )
+          .raise()
+    }
   }
 }

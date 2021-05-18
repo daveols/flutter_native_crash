@@ -1,5 +1,7 @@
-package com.flutternativecrash.flutter_native_crash
+package com.daveols.flutter_native_crash
 
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -10,10 +12,6 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 /** FlutterNativeCrashPlugin */
 class FlutterNativeCrashPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -22,8 +20,8 @@ class FlutterNativeCrashPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
+    if (call.method == "crash") {
+      crash()      
     } else {
       result.notImplemented()
     }
@@ -31,5 +29,11 @@ class FlutterNativeCrashPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
+  }
+
+  private fun crash() {
+    Handler(Looper.getMainLooper()).postDelayed({
+      throw FlutterNativeCrashException();
+    },50)
   }
 }

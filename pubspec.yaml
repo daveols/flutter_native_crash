@@ -27,7 +27,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.flutternativecrash.flutter_native_crash
+        package: com.daveols.flutter_native_crash
         pluginClass: FlutterNativeCrashPlugin
       ios:
         pluginClass: FlutterNativeCrashPlugin

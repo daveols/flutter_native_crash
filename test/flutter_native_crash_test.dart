@@ -17,7 +17,8 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await FlutterNativeCrash.platformVersion, '42');
+  test('crash', () async {
+    final result = FlutterNativeCrash.crash();
+    expect(result, null);
   });
 }
