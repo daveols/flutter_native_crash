@@ -1,15 +1,19 @@
 # flutter_native_crash
 
-A new flutter plugin project.
+Sometimes your app just needs to die, simply.
 
-## Getting Started
+This plugin provides a single method to throw a native exception on iOS and Android that will crash the application.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+Use when:
+- Your app handles sensitive data and is running on a rooted device 🔒
+- You catch an error that is terminal to your app's UX 🐞
+- You're testing error monitoring and reporting tooling 🚧
+- You're lazy and/or don't like polluting your app's method channel 🧘
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
 
+```dart
+import 'package:flutter_native_crash/flutter_native_crash.dart';
+
+FlutterNativeCrash.crash();
+```
